@@ -1,0 +1,36 @@
+body {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.AppRedirecting {
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.AppLoading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+
+  .AppLoading__Icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  @media (max-width: 768px) {
+    .AppLoading__Icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run build"]
+    }
+  ],
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self'; style-src 'self' 'unsafe-inline' https://admin.shopify.com https://cdn.shopify.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; media-src *; frame-src 'self' app.shopify.com *.shopifyapps.com *.myshopify.com https://* shopify-pos://* https://admin.shopify.com; script-src 'self' 'unsafe-inline' https://cdn.shopify.com https://cdn.shopify.com/shopifycloud/ https://ssl.gstatic.com https://apis.google.com https://www.gstatic.com https://firebase.googleapis.com https://*.firebaseio.com https://www.googleapis.com https://storage.googleapis.com; connect-src 'self' https://www.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com https://firestore.googleapis.com https://shopify.dev; img-src 'self' data: https://cdn.shopify.com https://*.firebaseapp.com https://storage.googleapis.com https://*.gstatic.com https://*.google.com; object-src 'none'; frame-ancestors 'self' https://*.myshopify.com;"
+          }
+        ]
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "function": "api",
+        "region": "asia-southeast1"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "frameworksBackend": {
+      "region": "asia-east1"
+    }
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  }
+}
